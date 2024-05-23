@@ -7,6 +7,7 @@ SELECT MAX(Price)
 FROM Products;
 
 -- COUNT
+-- count the number or entries from Product where Price = 18
 SELECT COUNT(*)
 FROM Products 
 WHERE Price = 18;
