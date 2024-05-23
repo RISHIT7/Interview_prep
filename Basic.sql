@@ -16,3 +16,7 @@ SELECT TOP 3
 FROM Customers;
 SELECT TOP 10 PERCENT first_name, last_name
 FROM Customers;
+
+-- what if we want to see all columns 
+SELECT *
+FROM Customers
