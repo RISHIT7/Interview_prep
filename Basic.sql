@@ -27,5 +27,5 @@ FROM Customers
 SELECT TOP 100 *
 FROM Customers
 
-SELECT first_name AS [Customer First Name], last_name
+SELECT first_name AS [Customer First Name], last_name AS "Customer Last Name"
 FROM Customers
