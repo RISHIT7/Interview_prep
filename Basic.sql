@@ -20,3 +20,9 @@ FROM Customers;
 -- what if we want to see all columns 
 SELECT *
 FROM Customers
+
+SELECT TOP 100 first_name, last_name
+FROM Customers
+
+SELECT TOP 100 *
+FROM Customers
