@@ -21,3 +21,7 @@ UPDATE Customers
 SET City = 'Oslo',
 Country = 'Norway'
 WHERE CustomerID = 32;
+
+-- DELETE
+DELETE FROM Customers
+WHERE Country = 'Norway';
