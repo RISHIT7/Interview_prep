@@ -23,6 +23,10 @@ FROM Customers
 
 SELECT TOP 100 first_name, last_name
 FROM Customers
+  
+-- To select distinct values
+SELECT DISTINCT first_name, last_name
+FROM Customers
 
 SELECT TOP 100 *
 FROM Customers
