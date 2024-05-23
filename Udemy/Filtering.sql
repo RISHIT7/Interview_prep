@@ -32,3 +32,18 @@ WHERE FirstName LIKE 'Mi%';
 -- WHERE FirstName LIKE 'Mi_'; -> "Mi" + alphanumeric
 -- WHERE FirstName LIKE '%s'-> * + 's'
 -- WHERE FirstName LIKE '%h%' -> * + 'h' + *
+
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE 'D[a-f]n';
+-- Just like RegEx
+
+SELECT *
+FROM HumanResources.vEmployee
+WHERE FirstName LIKE 'D[^a-f]n';
+-- ^ is a NOT operation
+
+-- NULL Values
+SELECT *
+FROM Customers
+WHERE first_name IS NULL;
