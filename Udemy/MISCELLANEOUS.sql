@@ -12,3 +12,12 @@ Country
 '4306',
 'Norway'
 );
+
+-- UPDATE
+UPDATE Customers
+SET City = 'Oslo';
+
+UPDATE Customers
+SET City = 'Oslo',
+Country = 'Norway'
+WHERE CustomerID = 32;
