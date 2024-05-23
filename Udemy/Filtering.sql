@@ -30,3 +30,5 @@ SELECT *
 FROM HumanResources.vEmployee
 WHERE FirstName LIKE 'Mi%';
 -- WHERE FirstName LIKE 'Mi_'; -> "Mi" + alphanumeric
+-- WHERE FirstName LIKE '%s'-> * + 's'
+-- WHERE FirstName LIKE '%h%' -> * + 'h' + *
