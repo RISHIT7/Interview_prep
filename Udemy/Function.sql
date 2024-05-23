@@ -22,3 +22,9 @@ FROM Products;
 -- SUM
 SELECT SUM(Price)
 FROM Products;
+
+-- THERE ARE MORE..!, RESEARCH
+
+SELECT SUM(TotalDues)
+FROM Sales.SalesOrderHeader
+WHERE OrderDate BETWEEN '1/1/2006' AND '12/31/2006'
