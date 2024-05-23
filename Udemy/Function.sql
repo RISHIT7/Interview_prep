@@ -12,6 +12,9 @@ SELECT COUNT(*)
 FROM Products 
 WHERE Price = 18;
 
+SELECT COUNT(DISTINCT FirstName)
+FROM Person.Person;
+
 -- AVG
 SELECT AVG(Price)
 FROM Products;
