@@ -35,3 +35,9 @@ LEFT OUTER JOIN Sales.SalesTerritory T
 ON T.TerritoryID = SOH.TerritoryID
 WHERE T.Name = 'Northwest'
 ORDER BY SOH.TotalDue DESC
+
+-- Symmetric difference
+SELECT * FROM TableA
+FULL OUTER JOIN TableB
+ON TableA.col_match - TableB.col_match
+WHERE TableA.id IS NULL OR TableB.id IS NULL
