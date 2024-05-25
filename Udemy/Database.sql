@@ -74,3 +74,12 @@ DELETE FROM tableA
 USING tableA
 WHERE tableA.id = tableB.id
 RETURNING tableA.id
+
+-- CHECK
+CREATE TABLE example (
+  ex_id SERIAL PRIMARY KEY,
+  age SMALLINT CHECK(age > 21),
+  parent_age SMALLINT CHECK(
+    parent_age > age
+  )
+);
