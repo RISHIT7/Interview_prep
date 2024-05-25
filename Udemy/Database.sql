@@ -9,7 +9,10 @@ CREATE TABLE Syntax (
 ) INHERITS existing_table_name;
 
 -- SERIAL, In PostgreSQL, a squence is a speical kind of database object that generates a squence integers
-
+CREATE TABLE players (
+  player_id SERIAL PRIMARY KEY,
+  age SMALLINT NOT NULL
+);
 
 CREATE TABLE Persons (
   PersonID int,
