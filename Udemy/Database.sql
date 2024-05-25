@@ -33,3 +33,15 @@ ADD Birthday DATE;
 
 ALTER TABLE Persons
 DROP COLUMN Birthday;
+
+-- INSERT
+INSERT INTO table(column1, column2, ...)
+VALUES
+  (value1, value2, ...)
+  (value1, value2, ...);
+
+-- constraint also must match!
+INSERT INTO table(column1, column2, ...)
+SELECT column1, column2
+FROM another_table
+WHERE condition;
