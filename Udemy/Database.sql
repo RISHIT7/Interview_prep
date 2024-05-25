@@ -45,3 +45,18 @@ INSERT INTO table(column1, column2, ...)
 SELECT column1, column2
 FROM another_table
 WHERE condition;
+
+-- UPDATE
+UPDATE account
+SET last_login = CURRENT_TIMESTAMP
+WHERE last_login IS NULL;
+
+UPDATE account
+SET loast_login = tableB.new_col
+FROM tableB
+WHERE account.id = tableB.id
+
+-- RETURNING
+UPDATE account
+SET last_login = created_on
+RETURNING account_id, last_login
