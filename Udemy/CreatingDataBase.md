@@ -11,7 +11,7 @@
 
 > Usually, when creating a table, we must carefully consider the data type, and look at their limitations
 > We may review this at [Postgre Datatype Documentation](postgresql.org/docs/current/datatype.html)
-> For example for phone numbers, we may choose `serial` or `bigserial` or even `varchar`! As leading zeros may cause issues, when dealing with country code
+> For example for phone numbers, we may choose `varchar`! As leading zeros may cause issues, when dealing with country code
 
 ## Primary and Foreign Keys
 - __Primary key__ is a column or a group of columns used to identify a row uniquely in a table.
