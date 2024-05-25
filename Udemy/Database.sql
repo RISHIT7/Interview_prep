@@ -28,11 +28,19 @@ DROP TABLE Persons;
 -- Use the TRUNCATE statement to delete all data inside a table.
 TRUNCATE TABLE Person;
 
+-- ALTER
 ALTER TABLE Persons
 ADD Birthday DATE;
 
 ALTER TABLE Persons
 DROP COLUMN Birthday;
+
+ALTER TABLE table_name
+ALTER COLUMN col_name
+SET DEFAULT value
+-- DROP DEFAULT value
+-- SET NOT NULL
+-- ADD CONSTRAINT constraint_name
 
 -- INSERT
 INSERT INTO table(column1, column2, ...)
