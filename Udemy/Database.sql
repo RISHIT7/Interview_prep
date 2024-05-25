@@ -2,6 +2,15 @@ CREATE DATABASE testDB;
 
 DROP DATABASE testDB;
 
+CREATE TABLE Syntax (
+  column_name TYPE column_constraint,
+  column_name TYPE column_constraint,
+  table_constraint table_constraint
+) INHERITS existing_table_name;
+
+-- SERIAL, In PostgreSQL, a squence is a speical kind of database object that generates a squence integers
+
+
 CREATE TABLE Persons (
   PersonID int,
   LastName varchar(255),
