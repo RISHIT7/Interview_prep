@@ -60,3 +60,9 @@ WHERE account.id = tableB.id
 UPDATE account
 SET last_login = created_on
 RETURNING account_id, last_login
+
+-- DELETE
+DELETE FROM tableA
+USING tableA
+WHERE tableA.id = tableB.id
+RETURNING tableA.id
