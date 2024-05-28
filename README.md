@@ -1,2 +1,3 @@
-# Data_Managment
-All about learning Data Managment, and DBMS
+# Interview_Prep
+My personal solutions of the questions from the following repository \
+[DevClub SDE-Prep](https://github.com/devclub-iitd/SDE-Prep/)
