@@ -7,13 +7,13 @@
 -- order by count(rating) desc, name
 
 -- -- avg rating
--- select top 1 title
+-- select title, avg(rating)
 -- from MovieRating
 -- join Movies
 -- on MovieRating.movie_id = Movies.movie_id
 -- where created_at between '2020-02-1' and '2020-02-28'
 -- group by title
--- order by avg(rating)
+-- order by avg(cast(rating as float)) desc, title
 
 select T1.name as results
 from(
@@ -32,5 +32,5 @@ join Movies
 on MovieRating.movie_id = Movies.movie_id
 where created_at between '2020-02-1' and '2020-02-28'
 group by title
-order by avg(rating)
+order by avg(cast(rating as float)) desc, title
 ) as T2
