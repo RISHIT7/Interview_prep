@@ -1,0 +1,2 @@
+Number the bottles from 1 to 1000 and the prisoners from 1 to 10. Convert bottles to their corresponding binary numbers (in 10 digits , like 0000000001 for 1). Now make the ith prisoner drink wine from nth bottle if the binary contains 1 in the ith index. Do this for all prisoners and all bottles. 
+After three weeks construct a new binary number where the ith index is 1 if the ith prisoner is dead and 0 if alive. Convert the resulting binary to decimal. That is the poisoned bottle
