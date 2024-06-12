@@ -21,7 +21,7 @@ async def root():
 def get_posts():
     return {'data': 'Posts'}
 
-@app.post('/posts')
+@app.post('/posts', status_code=status.HTTP_201_CREATED)
 def create_post(post: Post): # from the body
     post_dict = post.model_dump()
     post_dict['id'] = serial_id
@@ -34,8 +34,7 @@ def create_post(post: Post): # from the body
 @app.get('/posts/{id}')
 def get_post(id: int, response: Response):
     if (id < 0) or (id >= len(my_posts)):
-        # response.status_code = status.HTTP_404_NOT_FOUND -> sloppy
-        # return {'message': f'Post with {id} was not found'}
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail=f'Post with id: {id} not found')
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                            detail=f'Post with id: {id} not found')
 
     return {'data': my_posts[id]}
