@@ -30,7 +30,7 @@ def create_post(post: Post): # from the body
     return {'data': post_dict}
 
 @app.get('/posts/{id}')
-def get_post(id: int, response: Response):
+def get_post(id: int):
     if (id < 0) or (id >= len(my_posts)):
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                             detail=f'Post with id: {id} not found')
@@ -46,3 +46,14 @@ def delete_post(id: int, response: Response):
     my_posts.pop(id)
     response.status_code = status.HTTP_204_NO_CONTENT
     return {'data': f'Post deleted with id: {id}'}
+
+@app.put('/posts/{id}')
+def update_post(id: int, post: Post):
+    if (id < 0) or (id >= len(my_posts)):
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
+                            detail=f'Post with id: {id} not found')
+
+    post_dict = post.model_dump()
+    post_dict['id'] = id
+    my_posts[id] = post_dict
+    return {'data': post_dict}
