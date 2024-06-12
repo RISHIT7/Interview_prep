@@ -1,3 +1,4 @@
+# normalURL/docs for Swagger UI documentation and testing automatically without writing code!
 from typing import Optional
 from fastapi import FastAPI, Response, status, HTTPException
 from pydantic import BaseModel
