@@ -2,8 +2,13 @@
 from typing import Optional
 from fastapi import FastAPI, Response, status, HTTPException
 from pydantic import BaseModel
+import psycopg2
+from psycopg2.extras import RealDictCursor
+import time
+from . import secret
 
 app = FastAPI()
+DATABASE_PASSWORD = secret.secret()
 
 serial_id = 0
 my_posts = []
@@ -13,6 +18,18 @@ class Post(BaseModel):
     body: str
     published: bool = True
     rating: Optional[int] = None
+
+while True:
+    try:
+        conn = psycopg2.connect(host = 'localhost', database= 'FAST-API-Database', user='postgres', 
+                            password = DATABASE_PASSWORD, cursor_factory = RealDictCursor) # bad practice
+        cursor = conn.cursor()
+        print('Database connection successful')
+        break
+    except Exception as error:
+        print('Database connection error')
+        print("Error occured: ", error)
+        time.sleep(5) # if this is issue with the internet, it will keep trying to connect
 
 @app.get("/")
 async def root():
