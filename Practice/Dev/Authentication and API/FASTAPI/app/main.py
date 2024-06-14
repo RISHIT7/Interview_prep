@@ -1,11 +1,13 @@
 # normalURL/docs for Swagger UI documentation and testing automatically without writing code!
 from fastapi import FastAPI, Response, status, HTTPException, Depends
-from . import secret
-from .database import get_db, engine
-from .models import Post, Base
 from sqlalchemy.orm import Session
 
-Base.metadata.create_all(bind=engine)
+from . import secret
+from . import models, schemas
+from .database import get_db, engine
+
+
+models.Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 DATABASE_PASSWORD = secret.secret()
@@ -21,11 +23,11 @@ def get_posts(db: Session = Depends(get_db)):
     #                """)
     # posts = cursor.fetchall() 
 
-    posts = db.query(Post).all()
+    posts = db.query(models.Post).all()
     return {'data': posts}
 
 @app.post('/posts', status_code=status.HTTP_201_CREATED)
-def create_posts(post: Post, db: Session = Depends(get_db)): # from the body
+def create_posts(post: schemas.Post, db: Session = Depends(get_db)): # from the body
     # cursor.execute("""
     #                  INSERT INTO posts (title, body, published, rating)
     #                     VALUES (%(title)s, %(body)s, %(published)s, %(rating)s)
@@ -34,7 +36,7 @@ def create_posts(post: Post, db: Session = Depends(get_db)): # from the body
     # new_post = cursor.fetchone()
     # conn.commit()
 
-    new_post = Post(**post.model_dump())
+    new_post = models.Post(**post.model_dump())
     db.add(new_post)
     db.commit()
     return new_post
@@ -45,7 +47,7 @@ def get_post(id: int,  db: Session = Depends(get_db)):
     #                  SELECT * FROM posts WHERE id = %(id)s;
     #                     """, {'id': id})
     # my_post = cursor.fetchone()
-    post = db.query(Post).filter(Post.id == id).first()
+    post = db.query(models.Post).filter(models.Post.id == id).first()
     
     if not post:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
@@ -61,7 +63,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     #                  """, {'id': id})
     # deleted_post = cursor.fetchone()
     # conn.commit()
-    post_query = db.query(Post).filter(Post.id == id)
+    post_query = db.query(models.Post).filter(models.Post.id == id)
     post = post_query.first()
     
     if post == None:
@@ -74,7 +76,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 @app.put('/posts/{id}')
-def update_post(id: int, updated_post: Post, db: Session = Depends(get_db)):
+def update_post(id: int, updated_post: schemas.Post, db: Session = Depends(get_db)):
     # cursor.execute("""
     #                  UPDATE posts
     #                  SET title = %(title)s, body = %(body)s, published = %(published)s, rating = %(rating)s
@@ -84,7 +86,7 @@ def update_post(id: int, updated_post: Post, db: Session = Depends(get_db)):
     # updated_post = cursor.fetchone()
     # conn.commit()
     
-    post_query = db.query(Post).filter(Post.id == id)
+    post_query = db.query(models.Post).filter(models.Post.id == id)
     post = post_query.first()
     
     if post == None:
