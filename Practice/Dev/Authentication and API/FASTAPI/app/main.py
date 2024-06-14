@@ -27,7 +27,7 @@ def get_posts(db: Session = Depends(get_db)):
     return {'data': posts}
 
 @app.post('/posts', status_code=status.HTTP_201_CREATED)
-def create_posts(post: schemas.Post, db: Session = Depends(get_db)): # from the body
+def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db)): # from the body
     # cursor.execute("""
     #                  INSERT INTO posts (title, body, published, rating)
     #                     VALUES (%(title)s, %(body)s, %(published)s, %(rating)s)
@@ -76,7 +76,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 @app.put('/posts/{id}')
-def update_post(id: int, updated_post: schemas.Post, db: Session = Depends(get_db)):
+def update_post(id: int, updated_post: schemas.PostCreate, db: Session = Depends(get_db)):
     # cursor.execute("""
     #                  UPDATE posts
     #                  SET title = %(title)s, body = %(body)s, published = %(published)s, rating = %(rating)s

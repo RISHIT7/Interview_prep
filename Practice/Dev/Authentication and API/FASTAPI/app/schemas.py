@@ -1,14 +1,9 @@
-from pydantic import BaseModel, EmailStr
-from datetime import datetime
-from typing import Optional
+from pydantic import BaseModel
 
-from pydantic.types import conint
-
-class Post(BaseModel):
+class PostBase(BaseModel):
     title: str
     content: str
     published: bool = True
-    id: int
-    # owner_id: int
-    created_at: datetime
     
+class PostCreate(PostBase):
+    pass
