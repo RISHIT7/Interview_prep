@@ -1,30 +1,12 @@
 # normalURL/docs for Swagger UI documentation and testing automatically without writing code!
-from typing import Optional
 from fastapi import FastAPI, Response, status, HTTPException, Depends
-from pydantic import BaseModel
-import psycopg2
-from psycopg2.extras import RealDictCursor
-import time
 from . import secret
 from .database import get_db
 from .models import Post
 from sqlalchemy.orm import Session
-from sqlalchemy.sql.functions import func
 
 app = FastAPI()
 DATABASE_PASSWORD = secret.secret()
-
-while True:
-    try:
-        conn = psycopg2.connect(host = 'localhost', database= 'FAST-API-Database', user='postgres', 
-                            password = DATABASE_PASSWORD, cursor_factory = RealDictCursor) # bad practice
-        cursor = conn.cursor()
-        print('Database connection successful')
-        break
-    except Exception as error:
-        print('Database connection error')
-        print("Error occured: ", error)
-        time.sleep(5) # if this is issue with the internet, it will keep trying to connect
 
 @app.get("/")
 async def root():
