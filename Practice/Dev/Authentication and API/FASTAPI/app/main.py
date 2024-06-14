@@ -1,9 +1,11 @@
 # normalURL/docs for Swagger UI documentation and testing automatically without writing code!
 from fastapi import FastAPI, Response, status, HTTPException, Depends
 from . import secret
-from .database import get_db
-from .models import Post
+from .database import get_db, engine
+from .models import Post, Base
 from sqlalchemy.orm import Session
+
+Base.metadata.create_all(bind=engine)
 
 app = FastAPI()
 DATABASE_PASSWORD = secret.secret()
