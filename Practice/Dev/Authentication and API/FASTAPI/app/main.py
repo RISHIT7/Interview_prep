@@ -10,8 +10,6 @@ from . import secret
 app = FastAPI()
 DATABASE_PASSWORD = secret.secret()
 
-serial_id = 0
-
 class Post(BaseModel):
     title: str
     body: str
