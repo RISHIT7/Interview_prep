@@ -11,7 +11,6 @@ app = FastAPI()
 DATABASE_PASSWORD = secret.secret()
 
 serial_id = 0
-my_posts = []
 
 class Post(BaseModel):
     title: str
@@ -37,41 +36,41 @@ async def root():
 
 @app.get('/posts')
 def get_posts():
-    return {'data': 'Posts'}
+    cursor.execute("""
+                   SELECT * FROM posts;
+                   """)
+    posts = cursor.fetchall() 
+    return {'data': posts}
 
 @app.post('/posts', status_code=status.HTTP_201_CREATED)
 def create_post(post: Post): # from the body
-    post_dict = post.model_dump()
-    post_dict['id'] = serial_id
-    serial_id += 1 # makeshift database
-    my_posts.append(post_dict) # makeshift database
-    return {'data': post_dict}
+    cursor.execute("""
+                     INSERT INTO posts (title, body, published, rating)
+                        VALUES (%(title)s, %(body)s, %(published)s, %(rating)s);
+                     """, post.title, post.body, post.published, post.rating)
+    return {'data': "created successfully"}
 
 @app.get('/posts/{id}')
 def get_post(id: int):
-    if (id < 0) or (id >= len(my_posts)):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                            detail=f'Post with id: {id} not found')
-
-    return {'data': my_posts[id]}
+    cursor.execute("""
+                     SELECT * FROM posts WHERE id = %(id)s;
+                        """, {'id': id})
+    my_post = cursor.fetchone()
+    return {'data': my_post}
 
 @app.delete('/posts/{id}')
 def delete_post(id: int, response: Response):
-    if (id < 0) or (id >= len(my_posts)):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                            detail=f'Post with id: {id} not found')
-
-    my_posts.pop(id)
+    cursor.execute("""
+                     DELETE FROM posts WHERE id = %(id)s;
+                     """, {'id': id})
     response.status_code = status.HTTP_204_NO_CONTENT
     return {'data': f'Post deleted with id: {id}'}
 
 @app.put('/posts/{id}')
 def update_post(id: int, post: Post):
-    if (id < 0) or (id >= len(my_posts)):
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
-                            detail=f'Post with id: {id} not found')
-
-    post_dict = post.model_dump()
-    post_dict['id'] = id
-    my_posts[id] = post_dict
-    return {'data': post_dict}
+    cursor.execute("""
+                     UPDATE posts
+                     SET title = %(title)s, body = %(body)s, published = %(published)s, rating = %(rating)s
+                     WHERE id = %(id)s;
+                     """, {'id': id, 'title': post.title, 'body': post.body, 'published': post.published, 'rating': post.rating})
+    return {'data': f'Post with id: {id} updated successfully'}
