@@ -39,6 +39,7 @@ def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db)): # fro
     new_post = models.Post(**post.model_dump())
     db.add(new_post)
     db.commit()
+    db.refresh(new_post)
     return new_post
 
 @app.get('/posts/{id}', response_model = schemas.Post)
