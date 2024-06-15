@@ -47,7 +47,7 @@ def delete_post(id: int, db: Session = Depends(get_db)):
     
     post_query.delete(synchronize_session=False)
     db.commit()
-    
+    db.refresh(post)
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 @app.put('/posts/{id}', response_model=schemas.Post)
@@ -73,6 +73,15 @@ def create_user(user: schemas.UserCreate, db: Session = Depends(get_db)):
     new_user = models.User(**user.model_dump())
     db.add(new_user)
     db.commit()
-    db.refresh(new_user)
-
     return new_user
+
+@app.get('/users/{id}', response_model= schemas.UserOut)
+def get_user(id: int, db: Session = Depends(get_db)):
+    user = db.query(models.User).filter(models.User.id == id).first()
+    
+    if not user:
+        total_users = db.query(models.User).count()
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND,
+                            detail=f"User with id: {id} does not exist, total users: {total_users}")
+    
+    return user
