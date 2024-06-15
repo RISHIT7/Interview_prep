@@ -2,4 +2,3 @@ fastapi
 psycopg2-binary
 sqlalchemy
 pydantic
-test
