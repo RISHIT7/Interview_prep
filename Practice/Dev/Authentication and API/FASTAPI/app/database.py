@@ -2,7 +2,13 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
+<<<<<<< HEAD
 SQLALCHEMY_DATABASE_URL = "postgresql://postgres:JEEAdvanced#633@localhost/FAST-API-Database"
+=======
+from .secret import secret
+
+SQLALCHEMY_DATABASE_URL = "postgresql://postgres:" + secret() + "@localhost/FAST-API-Database"
+>>>>>>> 1e6140f8698eada048e053899a67573c97e4d1b1
 
 engine = create_engine(SQLALCHEMY_DATABASE_URL)
 
