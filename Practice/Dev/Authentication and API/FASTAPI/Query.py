@@ -4,9 +4,7 @@ try:
     conn = sqlite3.connect('./database.db')
     cursor = conn.cursor()
     query = """
-        INSERT INTO posts (title, content, published)
-        VALUES ('My love', 'Hey, I love you', 'FALSE')
-        RETURNING *;
+    SELECT * FROM users;
     """
 
     log = cursor.execute(query)
