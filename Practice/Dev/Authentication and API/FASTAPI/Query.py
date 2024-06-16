@@ -4,7 +4,7 @@ try:
     conn = sqlite3.connect('./database.db')
     cursor = conn.cursor()
     query = """
-    SELECT * FROM users;
+    DELETE FROM users;
     """
 
     log = cursor.execute(query)

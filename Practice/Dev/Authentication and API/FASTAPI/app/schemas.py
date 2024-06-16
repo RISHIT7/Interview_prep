@@ -29,3 +29,7 @@ class UserOut(BaseModel):
     
     class Config:
         from_attributes = True # allows us to return a Post object from the database, not a dict
+
+class UserLogin(BaseModel):
+    email: EmailStr
+    password: str
