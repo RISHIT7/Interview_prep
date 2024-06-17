@@ -2,11 +2,13 @@ from pydantic import BaseModel, EmailStr
 from datetime import datetime
 from typing import Optional
 
+
+# Post schemas
 class PostBase(BaseModel):
     title: str
     content: str
     published: Optional[bool] = True
-    rating: Optional[int] = 0
+    # rating: Optional[int] = 0
     
 class PostCreate(PostBase):
     pass
@@ -18,6 +20,7 @@ class Post(PostBase):
     class Config:
         from_attributes = True # allows us to return a Post object from the database, not a dict
 
+# User schemas
 class UserCreate(BaseModel):
     email: EmailStr
     password: str
@@ -33,3 +36,11 @@ class UserOut(BaseModel):
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
+    
+# Token schemas
+class Token(BaseModel):
+    access_token: str
+    token_type: str
+    
+class TokenData(BaseModel):
+    id: Optional[str] = None
