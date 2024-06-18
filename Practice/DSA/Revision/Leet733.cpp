@@ -10,7 +10,7 @@ public:
         vector<int> dy = {-1, 1, 0, 0};
         // up, down, left, right
         queue<pair<int, int>> q;
-        q.push({sr, sc});
+        q.push({sc, sr});
         vector<vector<bool>> vis(image.size(), vector<bool> (image[0].size(), false));
         while (!q.empty())
         {
