@@ -1,6 +1,20 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// recursive
+int dfs(int u, vector<int> adj[], vector<bool> &vis)
+{
+    vis[u] = true;
+    for (int v : adj[u])
+    {
+        if (!vis[v])
+            dfs(v, adj, vis);
+    }
+
+    return u;
+}
+
+// iterative
 vector<int> bfsOfGraph(int V, vector<int> adj[])
 {
     int vis[V];
@@ -60,37 +74,6 @@ vector<int> dfsOfGraph(int V, vector<int> adj[])
 
 int main()
 {
-    vector<int> adj[5];
-
-    adj[0].push_back(1); // Edge between vertex 0 and vertex 1
-    adj[1].push_back(0); // Edge between vertex 1 and vertex 0 (for undirected graph)
-
-    adj[0].push_back(4); // Edge between vertex 0 and vertex 4
-    adj[4].push_back(0); // Edge between vertex 4 and vertex 0
-
-    adj[1].push_back(2); // Edge between vertex 1 and vertex 2
-    adj[2].push_back(1); // Edge between vertex 2 and vertex 1
-
-    adj[1].push_back(3); // Edge between vertex 1 and vertex 3
-    adj[3].push_back(1); // Edge between vertex 3 and vertex 1
-
-    adj[1].push_back(4); // Edge between vertex 1 and vertex 4
-    adj[4].push_back(1); // Edge between vertex 4 and vertex 1
-
-    adj[2].push_back(3); // Edge between vertex 2 and vertex 3
-    adj[3].push_back(2); // Edge between vertex 3 and vertex 2
-
-    vector<int> bfs = bfsOfGraph(5, adj);
-    for (auto it : bfs)
-    {
-        cout << it << " ";
-    }cout << endl;
-    
-    vector<int> dfs = dfsOfGraph(5, adj);
-    for (auto it : dfs)
-    {
-        cout << it << " ";
-    }cout << endl;
 
     return 0;
 }
