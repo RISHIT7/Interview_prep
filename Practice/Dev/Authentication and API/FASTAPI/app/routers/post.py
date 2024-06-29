@@ -43,6 +43,10 @@ def delete_post(id: int, db: Session = Depends(get_db), curr_user: int = Depends
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, 
                             detail=f"Post with id {id} not found")
     
+    if post.owner_id != curr_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, 
+                            detail='You do not have permission to delete this post')
+    
     post_query.delete(synchronize_session=False)
     db.commit()
     return Response(status_code=status.HTTP_204_NO_CONTENT)
