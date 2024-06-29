@@ -17,7 +17,8 @@ def get_posts(db: Session = Depends(get_db), curr_user: int = Depends(oauth2.get
 
 @router.post('/', status_code=status.HTTP_201_CREATED, response_model=schemas.Post)
 def create_posts(post: schemas.PostCreate, db: Session = Depends(get_db), curr_user: int = Depends(oauth2.get_curr_user)): # from the body
-    new_post = models.Post(**post.model_dump())
+    # we have the id in curr_user.id
+    new_post = models.Post(owner_id = curr_user.id, **post.model_dump())
     db.add(new_post)
     db.commit()
     db.refresh(new_post)

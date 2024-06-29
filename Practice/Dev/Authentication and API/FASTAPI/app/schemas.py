@@ -16,6 +16,7 @@ class PostCreate(PostBase):
 class Post(PostBase):
     id: int
     created_at: datetime
+    owner_id: int
 
     class Config:
         from_attributes = True # allows us to return a Post object from the database, not a dict

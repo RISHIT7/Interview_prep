@@ -4,7 +4,8 @@ try:
     conn = sqlite3.connect('./database.db')
     cursor = conn.cursor()
     query = """
-    DELETE FROM users;
+    INSERT INTO posts (title, content, owner_id)
+    VALUES ('First Post', 'This is the first post', 1)
     """
 
     log = cursor.execute(query)
