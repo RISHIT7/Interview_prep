@@ -1,4 +1,5 @@
 from sqlalchemy import Column, ForeignKey, Integer, String, Boolean
+from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import TIMESTAMP
 from sqlalchemy.sql import func
 
@@ -16,7 +17,7 @@ class Post(Base):
     created_at = Column(TIMESTAMP(timezone=True), 
                         nullable=False, server_default=func.now())
 
-    # owner = relationship("User")
+    owner = relationship("User")
 
 class User(Base):
     __tablename__ = "users"

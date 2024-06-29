@@ -13,14 +13,6 @@ class PostBase(BaseModel):
 class PostCreate(PostBase):
     pass
 
-class Post(PostBase):
-    id: int
-    created_at: datetime
-    owner_id: int
-
-    class Config:
-        from_attributes = True # allows us to return a Post object from the database, not a dict
-
 # User schemas
 class UserCreate(BaseModel):
     email: EmailStr
@@ -45,3 +37,12 @@ class Token(BaseModel):
     
 class TokenData(BaseModel):
     id: Optional[str] = None
+    
+class Post(PostBase):
+    id: int
+    created_at: datetime
+    owner_id: int
+    owner: UserOut
+
+    class Config:
+        from_attributes = True # allows us to return a Post object from the database, not a dict
