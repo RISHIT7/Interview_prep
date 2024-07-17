@@ -14,7 +14,7 @@ void bfs(vector<vector<int>> graph, vector<bool> &vis, int node)
     {
         int curr_node = q.front();
         q.pop();
-        cout << curr_node << " ";
+        std::cout << curr_node << " ";
         for (auto child: graph[curr_node])
         {
             if (!vis[child])
@@ -39,7 +39,7 @@ void bfs(vector<vector<int>> graph, vector<bool> &vis, int node)
 void dfs(vector<vector<int>> graph, vector<bool> &vis, int node)
 {
     vis[node] = true;
-    cout << node << " ";
+    std::cout << node << " ";
     for (auto child: graph[node])
     {
         if (!vis[child])
@@ -50,6 +50,48 @@ void dfs(vector<vector<int>> graph, vector<bool> &vis, int node)
 }
 
 // TopoSort
+
+// Kahn's Algo
+vector<int> Kahn(int n, vector<vector<int>> graph)
+{
+    // setting up
+    queue<int> q;
+    vector<int> indegree(n, 0);
+    for (int i = 0; i < n; i++)
+    {
+        for (auto child: graph[i])
+        {
+            indegree[child]++;
+        }
+    }
+
+    // Adding all the nodes with indegrree 0 to the queue
+    for (int i = 0; i < n; i++)
+    {
+        if (indegree[i] == 0)
+        {
+            q.push(i);
+        }
+    }
+
+    // conintue untill queue is empty
+    vector<int> topo;
+    while (!q.empty())
+    {
+        int node = q.front();
+        q.pop();
+        topo.push_back(node);
+
+        for (auto it: graph[node])
+        {
+            indegree[it]--;
+            if (indegree[it] == 0) q.push(it);
+        }
+    }
+
+    return topo;
+}
+
 // Tarjan's Algo
 // Djikstra's Algo
 // Bellman Ford
@@ -66,16 +108,14 @@ int main()
 
     vector<vector<int>> graph;
     graph = {
-        {2},
-        {0, 3},
-        {1, 3, 5},
-        {1, 2, 4},
-        {},
-        {2, 7},
-        {5, 7},
-        {5, 9},
-        {4},
-        {8}
+        {1, 4, 7}, // 0
+        {2}, // 1
+        {3}, // 2
+        {}, // 3
+        {5}, // 4
+        {2, 6, 7}, // 5
+        {}, // 6
+        {} // 7
     };
     vector<bool> vis(graph.size(), false);
     for (int i = 0; i < graph.size(); i++)
@@ -83,7 +123,7 @@ int main()
         if (!vis[i])
             bfs(graph, vis, i);
     }
-    cout << "\n";
+    std::cout << "\n";
 
     vis = vector<bool>(graph.size(), false);
     for (int i = 0; i < graph.size(); i++)
@@ -93,6 +133,17 @@ int main()
             dfs(graph, vis, i);
         }
     }
+    std::cout << "\n";
 
+    vector<int> topo = Kahn(graph.size(), graph);
+    for (auto node: topo)
+    {
+        std::cout << node << " ";
+    }
+    std::cout << "\n";
     return 0;
 }
+
+// Revision list
+// 1) topo sort
+// 2) Kahn's Algo
