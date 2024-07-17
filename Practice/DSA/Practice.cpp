@@ -34,7 +34,21 @@ void bfs(vector<vector<int>> graph, vector<bool> &vis, int node)
 // and this solves the problem of the 01 bfs :)
 
 // multisource bfs
+
 // dfs
+void dfs(vector<vector<int>> graph, vector<bool> &vis, int node)
+{
+    vis[node] = true;
+    cout << node << " ";
+    for (auto child: graph[node])
+    {
+        if (!vis[child])
+        {
+            dfs(graph, vis, child);
+        }
+    }
+}
+
 // TopoSort
 // Tarjan's Algo
 // Djikstra's Algo
@@ -66,9 +80,19 @@ int main()
     vector<bool> vis(graph.size(), false);
     for (int i = 0; i < graph.size(); i++)
     {
-        bfs(graph, vis, i);
+        if (!vis[i])
+            bfs(graph, vis, i);
     }
     cout << "\n";
+
+    vis = vector<bool>(graph.size(), false);
+    for (int i = 0; i < graph.size(); i++)
+    {
+        if (!vis[i])
+        {
+            dfs(graph, vis, i);
+        }
+    }
 
     return 0;
 }
