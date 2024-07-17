@@ -27,6 +27,11 @@ void bfs(vector<vector<int>> graph, vector<bool> &vis, int node)
 }
 
 // 01 bfs
+// to every graph edge, we assign the weight 0
+// we add a reverse edge to all the edges, and give that a weight of 1
+// then we use a dequeue instead of a queue, since we all need to add the reverse edges to the correct of the queue
+// so now, we add the correct edge to the front of the queue, and the reverse edge to the back of the queue
+// and this solves the problem of the 01 bfs :)
 
 // multisource bfs
 // dfs
