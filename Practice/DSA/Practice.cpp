@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <queue>
+#include <climits>
 using namespace std;
 
 // bfs
@@ -94,7 +95,32 @@ vector<int> Kahn(int n, vector<vector<int>> graph)
 
 // Tarjan's Algo
 
-// Djikstra's Algo
+// Dijkstra's Algo
+void dijkstras(vector<vector<pair<int, int>>> graph, int node)
+{
+    priority_queue<pair<int, int>, vector<pair<int, int>>, greater<pair<int, int>>> pq;
+    vector<int> dist(graph.size(), INT32_MAX);
+    dist[node] = 0;
+    pq.push({0, node});
+
+    while (!pq.empty())
+    {
+        int curr_node = pq.top().second;
+        pq.pop();
+        for (auto &v : graph[curr_node])
+        {
+            int w = v.first, to = v.second;
+            if (dist[to] > dist[curr_node] + w)
+            {
+                dist[to] = dist[curr_node] + w;
+                pq.push({dist[to], to});
+            }
+        }
+    }
+    for (int i = 0; i < graph.size(); i++)
+        cout << dist[i] << " ";
+    cout << endl;
+}
 
 // Bellman Ford
 
