@@ -1,6 +1,5 @@
 // A C++ program to find strongly connected components in a
-// given directed graph using Tarjan's algorithm (single
-// DFS)
+// given directed graph using Tarjan's algorithm (single DFS)
 #include <bits/stdc++.h>
 #define NIL -1
 using namespace std;

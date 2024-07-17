@@ -93,10 +93,15 @@ vector<int> Kahn(int n, vector<vector<int>> graph)
 }
 
 // Tarjan's Algo
+
 // Djikstra's Algo
+
 // Bellman Ford
+
 // Floyd Warshall
+
 // Prim's Algo
+
 // Kruskal's Algo
 
 // DSU
@@ -147,3 +152,4 @@ int main()
 // Revision list
 // 1) topo sort
 // 2) Kahn's Algo
+// 3) Tarjan's Algo
